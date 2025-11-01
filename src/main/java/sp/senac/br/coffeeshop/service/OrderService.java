@@ -22,18 +22,23 @@ public class OrderService {
     }
 
     public Coffee getOrder() {
-        // TODO: Implementar a lógica do Decorator
-        // 1. se a lista de pedidos estiver vazia, retornar um placeholder
 
-        // 2. Instanciar o café base
+        if (orderItems.isEmpty()){
+            return getEmptyOrderPlaceholder();
+        }
 
-        // 3. Aplicar cada decorador sobre o café
-        // Percorra a lista de itens do pedido e para cada decorador, "envolva" o café atual
-        // Exemplo:
-        //if (item instanceof Milk) coffee = new Milk(coffee);
+        Coffee cafeSimples = new SimpleCoffee();
 
-        // 4. Retornar o café decorado
-        return null;
+        for (Coffee decorado : orderItems){
+            if (decorado instanceof Milk){
+                cafeSimples = new Milk(cafeSimples);
+            }
+            if (decorado instanceof Chantilly){
+                cafeSimples = new Chantilly(cafeSimples);
+            }
+        }
+
+        return cafeSimples;
     }
 
     private Coffee getEmptyOrderPlaceholder() {
